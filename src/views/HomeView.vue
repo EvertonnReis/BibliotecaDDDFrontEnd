@@ -60,7 +60,7 @@ export default {
   margin-top: 20px;
 }
 .card{
-  border: 1px solid #ccc;
+  border: 3px solid #ccc;
   border-radius: 5px;
   text-align: center;
   justify-content: center;

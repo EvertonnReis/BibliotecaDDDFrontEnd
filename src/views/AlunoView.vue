@@ -2,19 +2,13 @@
 </script>
 
 <template>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4" v-for="card in cards" :key="card.title">
-        <div class="card">
-          <img class="card-img-top" :src="card.image" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">{{ card.title }}</h5>
-            <p class="card-text">{{ card.text }}</p>
-            <a href="#" class="btn btn-primary">Acessar</a>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div>
+    <table>
+      <tr>
+        <td>nome</td>
+        <td>sobrenome</td>
+      </tr>
+    </table>
   </div>
 </template>
 
@@ -22,8 +16,13 @@
 
 export default {
   data() {
-    return {};
+    return {
+      alunos: []
+    };
   },
+  methods: {
+
+  }
 }
 </script>
 

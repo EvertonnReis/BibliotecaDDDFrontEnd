@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-body">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-black border-bottom border-body">
     <div class="container-fluid">
       <router-link to="/" class="navbar-brand star-wars-title">BibliotecaDDD</router-link>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expended="false" aria-label="Toggle navigation">
@@ -26,7 +26,7 @@
     <router-view></router-view>
   </div>
 
-  <footer class="bg-dark text-light" >
+  <footer class="bg-black text-light" >
     <div> Everton Reis / ADS / {{ new Date().getFullYear() }}</div>
   </footer>
 </template>
@@ -39,6 +39,6 @@ footer{
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 56px;
+  height: 35px;
 }
 </style>
