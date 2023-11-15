@@ -2,28 +2,60 @@
 </script>
 
 <template>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4" v-for="card in cards" :key="card.title">
-        <div class="card">
-          <img class="card-img-top" :src="card.image" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">{{ card.title }}</h5>
-            <p class="card-text">{{ card.text }}</p>
-            <a href="#" class="btn btn-primary">Acessar</a>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div>
+    <button class="btn btn-primary">Adicionar Bibliotecaria</button>
+  </div>
+  <div>
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th class="head-table">Nome</th>
+          <th class="head-table">Sobrenome</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="bibliotecaria in bibliotecarias" :key="bibliotecaria.userId">
+          <td>{{ bibliotecaria.nome }}</td>
+          <td>{{ bibliotecaria.sobrenome }}</td>
+          <td>
+            <button class="btn btn-success" @click="editarBibliotecaria(bibliotecaria)">Editar</button>
+            <button class="btn btn-danger" @click="excluirBibliotecaria(bibliotecaria)">Excluir</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {
   data() {
-    return {};
+    return {
+      bibliotecarias: []
+    };
   },
+  created() {
+    axios.get('https://localhost:7127/api/bibliotecaria')
+      .then(response => {
+        this.bibliotecarias = response.data;
+        console.log("Entrei!!");
+        console.log(this.bibliotecarias);
+      })
+      .catch(error => {
+        console.error('Erro ao buscar bibliotecarias: ', error);
+      });
+  },
+  methods:{
+    editarBibliotecaria(){
+      console.log("Editei")
+    },
+    excluirBibliotecaria(){
+      console.log("Exclui")
+    }
+  }
 }
 </script>
 

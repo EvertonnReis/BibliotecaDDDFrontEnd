@@ -2,27 +2,55 @@
 </script>
 
 <template>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4" v-for="card in cards" :key="card.title">
-        <div class="card">
-          <img class="card-img-top" :src="card.image" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">{{ card.title }}</h5>
-            <p class="card-text">{{ card.text }}</p>
-            <a href="#" class="btn btn-primary">Acessar</a>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div>
+    <button class="btn btn-primary">Adicionar Empréstimo</button>
+  </div>
+  <div>
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th class="head-table">ID</th>
+          <th class="head-table">Aluno</th>
+          <th class="head-table">Livro</th>
+          <th class="head-table">Bibliotecaria</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="emprestimo in emprestimos" :key="emprestimo.emprestimoId">
+          <td>{{ emprestimo.emprestimoId }}</td>
+          <td>{{ emprestimo.alunoId }}</td>
+          <td>{{ emprestimo.livroId }}</td>
+          <td>{{ emprestimo.bibliotecariaId}}</td>
+          <td>
+            <button class="btn btn-success" @click="editarEmprestimo(emprestimo)">Editar</button>
+            <button class="btn btn-danger" @click="excluirEmprestimo(emprestimo)">Excluir</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {
   data() {
-    return {};
+    return {
+      emprestimos: []
+    };
+  },
+  created() {
+    axios.get('https://localhost:7127/api/Emprestimo')
+      .then(response => {
+        this.emprestimos = response.data;
+        console.log("Entrei!!");
+        console.log(this.emprestimos);
+      })
+      .catch(error => {
+        console.error('Erro ao buscar Emprestimos: ', error);
+      });
   },
 }
 </script>

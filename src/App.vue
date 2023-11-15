@@ -1,35 +1,20 @@
 <script setup>
 
+import Navbar from '../src/components/NavBar.Vue';
+import Footer from '../src/components/Footer.Vue';
+
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-black border-bottom border-body">
-    <div class="container-fluid">
-      <router-link to="/" class="navbar-brand star-wars-title">BibliotecaDDD</router-link>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expended="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <router-link to="/" class="nav-link" aria-current="page">Home</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link to="/about" class="nav-link">About</router-link>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-  <div class="main">
-    <router-view></router-view>
+  <div>
+    <Navbar />
+    <!-- <div class="main">
+      <router-view></router-view>
+    </div> -->
+    <Footer />
   </div>
-
-  <footer class="bg-black text-light" >
-    <div> Everton Reis / ADS / {{ new Date().getFullYear() }}</div>
-  </footer>
 </template>
+
 
 <style>
 footer{

@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import AlunoView from '../views/AlunoView.vue';
-import LivroView from '../views/AlunoView.vue';
-import BibliotecariaView from '../views/AlunoView.vue';
-import EmprestimoView from '../views/AlunoView.vue';
+import LivroView from '../views/LivroView.vue';
+import BibliotecariaView from '../views/BibliotecariaView.vue';
+import EmprestimoView from '../views/EmprestimoView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

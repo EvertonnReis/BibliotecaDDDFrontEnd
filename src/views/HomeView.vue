@@ -11,7 +11,6 @@
             <h5 class="card-title">{{ card.title }}</h5>
             <p class="card-text">{{ card.text }}</p>
             <router-link :to="{ name: card.routeName }" class="btn btn-primary">Acessar</router-link>
-            <!-- <a href="#" class="btn btn-primary">Acessar</a> -->
           </div>
         </div>
       </div>
