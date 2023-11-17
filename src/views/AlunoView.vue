@@ -1,6 +1,7 @@
 <template>
   <div>
-    <button class="btn btn-primary">Adicionar Aluno</button>
+    <button @click="mostrarModal" class="btn btn-primary">Adicionar Aluno</button>
+    <AdicionarAlunoModal @alunoAdicionado="alunoAdicionado" ref="adicionarAlunoModal" />
   </div>
   <div>
     <table class="custom-table">
@@ -27,8 +28,12 @@
 
 <script>
 import axios from 'axios';
+import AdicionarAlunoModal from '../components/AdicionarAlunoModal.vue';
 
 export default {
+  components: {
+    AdicionarAlunoModal
+  },
   data() {
     return {
       alunos: []
@@ -45,23 +50,25 @@ export default {
         console.error('Erro ao buscar alunos: ', error);
       });
   },
-  methods:{
-    editarAluno(){
-      console.log("Editei")
+  methods: {
+    mostrarModal() {
+      this.$refs.adicionarAlunoModal.abrirModal();
     },
-    excluirAluno(){
-      console.log("Exclui")
+    alunoAdicionado(novoAluno) {
+      console.log('Novo aluno adicionado:', novoAluno);
     }
+    // Adicione outros métodos conforme necessário
   }
-}
+};
 </script>
 
 <style>
-.btn{
+.btn {
   margin: 10px;
 }
 
-.container, .card {
+.container,
+.card {
   margin-top: 20px;
 }
 
@@ -85,7 +92,8 @@ export default {
   width: 100%;
 }
 
-.custom-table th, .custom-table td {
+.custom-table th,
+.custom-table td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: left;
@@ -108,5 +116,4 @@ export default {
   padding: 8px;
   text-align: left;
 }
-
 </style>
