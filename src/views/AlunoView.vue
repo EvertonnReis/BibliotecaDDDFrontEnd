@@ -2,37 +2,41 @@
   <div>
     <button @click="mostrarModal" class="btn btn-primary">Adicionar Aluno</button>
     <AdicionarAlunoModal @alunoAdicionado="alunoAdicionado" ref="adicionarAlunoModal" />
-  </div>
-  <div>
-    <table class="custom-table">
-      <thead>
-        <tr>
-          <th class="head-table">Nome</th>
-          <th class="head-table">Sobrenome</th>
-          <th>Ações</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="aluno in alunos" :key="aluno.userId">
-          <td>{{ aluno.nome }}</td>
-          <td>{{ aluno.sobrenome }}</td>
-          <td>
-            <button class="btn btn-success" @click="editarAluno(aluno)">Editar</button>
-            <button class="btn btn-danger" @click="excluirAluno(aluno)">Excluir</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <EditarAlunoModal ref="editarAlunoModal" />
+
+    <div>
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th class="head-table">Nome</th>
+            <th class="head-table">Sobrenome</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="aluno in alunos" :key="aluno.userId">
+            <td>{{ aluno.nome }}</td>
+            <td>{{ aluno.sobrenome }}</td>
+            <td>
+              <button class="btn btn-success" @click="abrirModalEditar(aluno)">Editar</button>
+              <button class="btn btn-danger" @click="excluirAluno(aluno)">Excluir</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
 import AdicionarAlunoModal from '../components/AdicionarAlunoModal.vue';
+import EditarAlunoModal from '../components/EditarAlunoModal.vue'; 
 
 export default {
   components: {
-    AdicionarAlunoModal
+    AdicionarAlunoModal,
+    EditarAlunoModal
   },
   data() {
     return {
@@ -43,21 +47,33 @@ export default {
     axios.get('https://localhost:7127/api/aluno')
       .then(response => {
         this.alunos = response.data;
-        console.log("Entrei!!");
-        console.log(this.alunos);
       })
       .catch(error => {
         console.error('Erro ao buscar alunos: ', error);
       });
   },
   methods: {
+    abrirModalEditar(aluno) {
+      this.$refs.editarAlunoModal.abrirModal(aluno);
+    },
     mostrarModal() {
       this.$refs.adicionarAlunoModal.abrirModal();
     },
     alunoAdicionado(novoAluno) {
       console.log('Novo aluno adicionado:', novoAluno);
+    },
+    excluirAluno(aluno) {
+      if (confirm('Tem certeza de que deseja excluir este aluno?')) {
+        axios.delete(`https://localhost:7127/api/Aluno`, { data: aluno })
+          .then(response => {
+            console.log('Aluno excluído com sucesso:', response.data);
+            this.carregarAlunos(); // Atualiza a lista de alunos após a exclusão
+          })
+          .catch(error => {
+            console.error('Erro ao excluir aluno:', error);
+          });
+      }
     }
-    // Adicione outros métodos conforme necessário
   }
 };
 </script>

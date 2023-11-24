@@ -7,13 +7,23 @@
 
                 <label for="sobrenome">Sobrenome:</label>
                 <input type="text" id="sobrenome" v-model="novoAluno.sobrenome" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" v-model="novoAluno.email" required>
+
+                <label for="login">Login:</label>
+                <input type="text" id="login" v-model="novoAluno.login" required>
+
+                <label for="senha">Senha:</label>
+                <input type="password" id="senha" v-model="novoAluno.senha" required>
+
                 <br>
                 <button click="adicionarAluno" type="submit">Adicionar Aluno</button>
             </form>
         </div>
     </div>
 </template>
-  
+
 <script>
 import axios from 'axios';
 
@@ -22,7 +32,10 @@ export default {
         return {
             novoAluno: {
                 nome: '',
-                sobrenome: ''
+                sobrenome: '',
+                email: '',
+                login: '',
+                senha: ''
             },
             modalAberto: false
         };
@@ -39,22 +52,24 @@ export default {
                 .finally(() => {
                     this.fecharModal();
                 });
-
         },
         fecharModal() {
             this.modalAberto = false;
         },
         abrirModal() {
             this.modalAberto = true;
-        }
+        },
+        atualizarPagina() {
+      window.location.reload(); // Recarrega a página
+    }
     }
 };
 </script>
-  
+
 <style scoped>
 .modal {
     position: fixed;
-    top: 30%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
@@ -86,13 +101,10 @@ input {
 
 button {
     background-color: #3498db;
-    /* Cor de fundo do botão */
     color: #fff;
-    /* Cor do texto do botão */
     padding: 10px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
 }
 </style>
-  
