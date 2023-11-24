@@ -57,7 +57,16 @@ export default {
       console.log("Editei", livro);
     },
     excluirLivro(livro) {
-      console.log("Exclui", livro);
+      if (confirm('Tem certeza de que deseja excluir este livro?')) {
+        axios.delete(`https://localhost:7127/api/Livro`, { data: livro })
+          .then(response => {
+            console.log('Livro excluído com sucesso:', response.data);
+            this.carregarLivros(); // Atualiza a lista de livros após a exclusão do livro
+          })
+          .catch(error => {
+            console.error('Erro ao excluir livro:', error);
+          });
+      }
     },
     mostrarModalAdicionarLivro() {
       this.$refs.adicionarLivroModal.abrirModal();
