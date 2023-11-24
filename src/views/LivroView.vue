@@ -2,6 +2,7 @@
   <div>
     <button @click="mostrarModalAdicionarLivro" class="btn btn-primary">Adicionar Livro</button>
     <AdicionarLivroModal @livroAdicionado="livroAdicionado" ref="adicionarLivroModal" />
+    <EditarLivroModal @livroEditado="livroEditado" ref="editarLivroModal" />
 
     <div>
       <table class="custom-table">
@@ -30,10 +31,12 @@
 <script>
 import axios from 'axios';
 import AdicionarLivroModal from '../components/AdicionarLivroModal.vue';
+import EditarLivroModal from '../components/EditarLivroModal.vue';
 
 export default {
   components: {
     AdicionarLivroModal,
+    EditarLivroModal
   },
   data() {
     return {
@@ -54,7 +57,7 @@ export default {
         });
     },
     editarLivro(livro) {
-      console.log("Editei", livro);
+      this.$refs.editarLivroModal.abrirModal(livro);
     },
     excluirLivro(livro) {
       if (confirm('Tem certeza de que deseja excluir este livro?')) {
