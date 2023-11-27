@@ -8,6 +8,7 @@
       <table class="custom-table">
         <thead>
           <tr>
+            <th class="head-table">ID</th>
             <th class="head-table">Nome</th>
             <th class="head-table">Sobrenome</th>
             <th>Ações</th>
@@ -15,6 +16,7 @@
         </thead>
         <tbody>
           <tr v-for="aluno in alunos" :key="aluno.userId">
+            <td>{{ aluno.userId }}</td>
             <td>{{ aluno.nome }}</td>
             <td>{{ aluno.sobrenome }}</td>
             <td>
@@ -31,7 +33,7 @@
 <script>
 import axios from 'axios';
 import AdicionarAlunoModal from '../components/AdicionarAlunoModal.vue';
-import EditarAlunoModal from '../components/EditarAlunoModal.vue'; 
+import EditarAlunoModal from '../components/EditarAlunoModal.vue';
 
 export default {
   components: {
@@ -44,15 +46,18 @@ export default {
     };
   },
   created() {
-    axios.get('https://localhost:7127/api/aluno')
-      .then(response => {
-        this.alunos = response.data;
-      })
-      .catch(error => {
-        console.error('Erro ao buscar alunos: ', error);
-      });
+    this.carregarAlunos();
   },
   methods: {
+    carregarAlunos() {
+      axios.get('https://localhost:7127/api/aluno')
+        .then(response => {
+          this.alunos = response.data;
+        })
+        .catch(error => {
+          console.error('Erro ao buscar alunos: ', error);
+        });
+    },
     abrirModalEditar(aluno) {
       this.$refs.editarAlunoModal.abrirModal(aluno);
     },
@@ -61,6 +66,7 @@ export default {
     },
     alunoAdicionado(novoAluno) {
       console.log('Novo aluno adicionado:', novoAluno);
+      this.carregarAlunos(); // Atualiza a lista de alunos após a adição
     },
     excluirAluno(aluno) {
       if (confirm('Tem certeza de que deseja excluir este aluno?')) {

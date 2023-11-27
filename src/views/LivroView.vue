@@ -8,6 +8,7 @@
       <table class="custom-table">
         <thead>
           <tr>
+            <th class="head-table">ID</th>
             <th class="head-table">Título</th>
             <th class="head-table">Autor</th>
             <th>Ações</th>
@@ -15,6 +16,7 @@
         </thead>
         <tbody>
           <tr v-for="livro in livros" :key="livro.id">
+            <td>{{ livro.livroId }}</td>
             <td>{{ livro.titulo }}</td>
             <td>{{ livro.autor }}</td>
             <td>

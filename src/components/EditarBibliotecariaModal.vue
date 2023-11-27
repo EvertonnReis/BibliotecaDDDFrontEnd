@@ -1,35 +1,37 @@
 <template>
     <div class="modal" v-if="modalAberto">
         <div class="modal-content">
-            <form @submit.prevent="adicionarAluno">
+            <form @submit.prevent="editarBibliotecaria">
+
                 <label for="nome">Nome:</label>
-                <input type="text" id="nome" v-model="novoAluno.nome" required>
+                <input type="text" id="nome" v-model="bibliotecaria.nome" required>
 
                 <label for="sobrenome">Sobrenome:</label>
-                <input type="text" id="sobrenome" v-model="novoAluno.sobrenome" required>
+                <input type="text" id="sobrenome" v-model="bibliotecaria.sobrenome" required>
 
                 <label for="email">Email:</label>
-                <input type="email" id="email" v-model="novoAluno.email" required>
+                <input type="email" id="email" v-model="bibliotecaria.email" required>
 
                 <label for="login">Login:</label>
-                <input type="text" id="login" v-model="novoAluno.login" required>
+                <input type="text" id="login" v-model="bibliotecaria.login" required>
 
                 <label for="senha">Senha:</label>
-                <input type="password" id="senha" v-model="novoAluno.senha" required>
+                <input type="password" id="senha" v-model="bibliotecaria.senha" required>
+
                 <br>
-                <button click="adicionarAluno" type="submit">Adicionar Aluno</button>
+                <button type="submit">Editar Bibliotecária</button>
             </form>
         </div>
     </div>
 </template>
-
+  
 <script>
 import axios from 'axios';
 
 export default {
     data() {
         return {
-            novoAluno: {
+            bibliotecaria: {
                 nome: '',
                 sobrenome: '',
                 email: '',
@@ -40,13 +42,13 @@ export default {
         };
     },
     methods: {
-        adicionarAluno() {
-            axios.post('https://localhost:7127/api/Aluno', this.novoAluno)
+        editarBibliotecaria() {
+            axios.put('https://localhost:7127/api/Bibliotecaria', this.bibliotecaria)
                 .then(response => {
-                    console.log('Aluno adicionado com sucesso:', response.data);
+                    console.log('Bibliotecária editada com sucesso:', response.data);
                 })
                 .catch(error => {
-                    console.error('Erro ao adicionar aluno:', error);
+                    console.error('Erro ao editar bibliotecária:', error);
                 })
                 .finally(() => {
                     this.fecharModal();
@@ -54,18 +56,23 @@ export default {
         },
         fecharModal() {
             this.modalAberto = false;
-            window.location.reload();
         },
-        abrirModal() {
+        abrirModal(bibliotecaria) {
             this.modalAberto = true;
-        },
-        atualizarPagina() {
-            window.location.reload();
+
+            // Preencher os campos do modal com os dados da bibliotecária selecionada
+            this.bibliotecaria = {
+                nome: bibliotecaria.nome,
+                sobrenome: bibliotecaria.sobrenome,
+                email: bibliotecaria.email,
+                login: bibliotecaria.login,
+                senha: bibliotecaria.senha
+            };
         }
     }
 };
 </script>
-
+  
 <style scoped>
 .modal {
     position: fixed;
@@ -108,3 +115,4 @@ button {
     cursor: pointer;
 }
 </style>
+  

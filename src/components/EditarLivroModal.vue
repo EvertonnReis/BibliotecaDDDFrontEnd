@@ -49,7 +49,6 @@
       abrirModal(livro) {
         this.modalAberto = true;
   
-        // Preencher os campos do modal com os dados do livro selecionado
         this.livro = {
           livroId: livro.livroId,
           titulo: livro.titulo,

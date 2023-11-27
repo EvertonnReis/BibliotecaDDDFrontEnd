@@ -3,7 +3,8 @@
 
 <template>
   <div>
-    <button class="btn btn-primary">Adicionar Empréstimo</button>
+    <button class="btn btn-primary" @click="mostrarModal">Adicionar Empréstimo</button>
+    <AdicionarEmprestimoModal ref="adicionarEmprestimoModal" />
   </div>
   <div>
     <table class="custom-table">
@@ -21,7 +22,7 @@
           <td>{{ emprestimo.emprestimoId }}</td>
           <td>{{ emprestimo.alunoId }}</td>
           <td>{{ emprestimo.livroId }}</td>
-          <td>{{ emprestimo.bibliotecariaId}}</td>
+          <td>{{ emprestimo.bibliotecariaId }}</td>
           <td>
             <button class="btn btn-success" @click="editarEmprestimo(emprestimo)">Editar</button>
             <button class="btn btn-danger" @click="excluirEmprestimo(emprestimo)">Excluir</button>
@@ -34,8 +35,12 @@
 
 <script>
 import axios from 'axios';
+import AdicionarEmprestimoModal from '../components/AdicionarEmprestimoModal.vue';
 
 export default {
+  components: {
+    AdicionarEmprestimoModal
+  },
   data() {
     return {
       emprestimos: []
@@ -52,22 +57,31 @@ export default {
         console.error('Erro ao buscar Emprestimos: ', error);
       });
   },
+  methods: {
+    mostrarModal() {
+      // Lógica para mostrar o modal
+      this.$refs.adicionarEmprestimoModal.mostrarModal();
+    },
+  }
 }
 </script>
 
+
 <style>
-.container, .card{
+.container,
+.card {
   margin-top: 20px;
 }
-.card{
+
+.card {
   border: 1px solid #ccc;
   border-radius: 5px;
   text-align: center;
   justify-content: center;
 }
-.card-img-top{
+
+.card-img-top {
   width: 100px;
   height: 100px;
   margin: 0 auto;
-}
-</style>
+}</style>
